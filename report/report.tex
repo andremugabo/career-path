@@ -38,8 +38,8 @@ The formula is:
 \textbf{Simple Explanation:} Imagine the lowest mark someone got was 20 ($X_{min}$), the highest was 100 ($X_{max}$), and your mark was 60 ($X$). 
 The calculation is: $\frac{60 - 20}{100 - 20} = \frac{40}{80} = 0.5$. Your normalized score is 0.5 (or 50\%).
 
-\section{Step 3: Building the Machine Learning Model}
-Because our data only has exam scores and does not tell us what jobs the students actually got in the real world, we had to use a type of Artificial Intelligence called \textbf{Unsupervised Learning}. This means the computer tries to find hidden patterns or groups on its own.
+\section{Step 3: Our Proposed Mathematical Model (Unsupervised Skill Profiling)}
+Because our data provides a single "snapshot" of exam scores (cross-sectional) and does not tell us what jobs the students actually got in the real world, we cannot use traditional supervised prediction. Instead, we propose our own custom mathematical model based on \textbf{Unsupervised Learning}. This allows the algorithm to discover latent skill profiles mathematically.
 
 \subsection{The Math: K-Means Clustering}
 We used an algorithm called \textbf{K-Means Clustering}. Imagine plotting every student on a giant graph based on their Math, Physics, Biology, and Chemistry scores. K-Means tries to find natural groups (clusters) of students who are similar to each other.
