@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Exploratory Data Analysis: National Exam Dataset (2017-2025)}
+\author{Data Analysis Report}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This document outlines the findings from the exploratory data analysis conducted on the National Exam datasets spanning from 2017 to 2025. The dataset comprises multiple CSV files which contain student academic performance data across various subjects.
+
+\section{Key Findings}
+\subsection{File Inventory}
+The dataset includes annual CSV files (e.g., \texttt{National exam\_dataset\_S3\_2017-2025(2017).csv}) alongside a consolidated Excel file. Additionally, Python scripts (\texttt{combine\_csv.py}) indicate previous efforts to merge these files.
+
+\subsection{Schema Drift and Inconsistencies}
+The most significant challenge with manipulating this data is the inconsistency in column naming conventions across different years. This phenomenon, known as schema drift, prevents straightforward vertical concatenation of the datasets.
+\begin{itemize}
+    \item \textbf{Biology Grades:} Represented variously as \texttt{grade value biology}, \texttt{biology grade value}, and \texttt{biology and health sciences raw marks}.
+    \item \textbf{Mathematics Grades:} Found as \texttt{grade value maths}, \texttt{mathematics grade value}, and \texttt{mathematics raw marks}.
+    \item \textbf{School Year:} This column is missing or inconsistently named in some annual files, complicating year-over-year longitudinal analysis.
+\end{itemize}
+
+\subsection{Summary Statistics}
+Despite the structural inconsistencies, analysis of aligning columns reveals the following insights:
+\begin{itemize}
+    \item \textbf{Academic Options:} The majority of students belong to the \texttt{OLC} option ($\sim$277,823 students), followed by the \texttt{TVET} option ($\sim$32,747 students). Note that minor data entry errors exist (e.g., \texttt{olc}, \texttt{0LC}).
+    \item \textbf{Grade Averages (2017-2019 baseline):} For datasets adhering to the \texttt{grade value} schema, overall averages were Biology (6.84), Chemistry (7.76), Mathematics (6.51), and Physics (7.35).
+\end{itemize}
+
+\section{Alignment with Thesis: Skill-based Career Path Modeling}
+To utilize this dataset for a thesis titled \textbf{"Skill-based Career Path Modeling and Recommendation"}, the data must be viewed through the lens of \textit{skill extraction}. 
+
+In this context, a student's academic grades act as proxies for foundational cognitive and technical skills:
+\begin{itemize}
+    \item \textbf{Quantitative \& Analytical Skills:} Represented by Mathematics and Physics grades.
+    \item \textbf{Scientific \& Research Skills:} Represented by Biology and Chemistry grades.
+    \item \textbf{Vocational Aptitude:} Indicated by the student's chosen academic track (e.g., TVET indicates a technical/vocational leaning).
+\end{itemize}
+
+The ultimate goal of the data manipulation is to transform raw exam records into structured \textbf{Student Skill Profiles}. These profiles can then be fed into a Machine Learning model (such as K-Means clustering for profiling, or Collaborative Filtering for recommendations) to map a student's skill footprint to ideal career clusters (e.g., Healthcare, Engineering, IT).
+
+\section{Recommendations for Advanced Data Manipulation}
+To effectively use and manipulate this data for the recommendation model, a rigorous and thesis-aligned data cleaning pipeline must be established. The best approach involves the following steps:
+
+\begin{enumerate}
+    \item \textbf{Standardized Column Mapping:} Develop a dictionary-based mapping system to unify disparate column names (e.g., mapping all variations of biology grades to a single \texttt{Biology\_Grade} column).
+    \item \textbf{Data Type Normalization:} Explicitly define data types during the ingestion phase. Identifiers such as \texttt{School Code} and \texttt{Student Number} should be parsed as strings to preserve leading zeros.
+    \item \textbf{Categorical Value Cleaning \& Encoding:} Standardize text inputs (e.g., merge \texttt{0LC} and \texttt{olc} into \texttt{OLC}). For machine learning, these categorical options must later be One-Hot Encoded.
+    \item \textbf{Score Normalization (Critical for ML):} The dataset contains both ``raw marks" and ``grade values" depending on the year. For a recommendation algorithm to weigh skills equally, all scores must be normalized to a standard scale (e.g., Min-Max scaling 0-100, or Z-score standardization).
+    \item \textbf{Feature Engineering (Skill Composites):} Create new derivative columns that represent broader skills. For example, averaging Math and Physics scores to create a \texttt{Logico\_Mathematical\_Aptitude} feature.
+    \item \textbf{Robust Merging Script:} Utilize a script (e.g., via Python's \texttt{pandas} library) that applies the mapping, normalization, and feature engineering rules iteratively to each file before performing the final concatenation into a master dataset.
+\end{enumerate}
+
+\end{document}
