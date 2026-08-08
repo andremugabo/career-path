@@ -1,0 +1,116 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\title{Project Report: Skill-Based Career Path Recommendation Using O-Level Data}
+\author{Data Science Team}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+The goal of this project is to build an "Early Intervention Career Guidance System." We want to use students' Ordinary Level (O-Level) exam scores to predict the best career paths for them. O-Level scores are a great starting point because they act as the foundation for future studies, like Advanced Level (A-Level) or Technical Vocational (TVET) tracks.
+
+This report explains everything we have done so far, step by step, in simple English, including the math behind our computer model.
+
+\section{Step 1: Understanding our Data}
+We started with several years of O-Level exam results (from 2017 to 2025). When we first looked at the files, we found a big problem called "Schema Drift". This simply means that over the years, the names of the columns kept changing. For example, in one year Biology scores were called "grade value biology", and in another year they were called "biology and health sciences raw marks". Before a computer can learn from data, all the names must match perfectly.
+
+\section{Step 2: Cleaning the Data}
+We created a computer program (called a pipeline) to read all the files, rename the messy columns into a standard format, and put them all together into one big, clean file.
+
+\subsection{The Math: Normalization}
+Another big problem was that some scores were "grades" (from 1 to 9) and some were "raw marks" (from 0 to 100). A computer model gets confused if we compare a score of 7 to a score of 85. 
+
+To fix this, we used a math trick called \textbf{Min-Max Normalization}. This formula takes any score and squishes it into a range between 0 and 1. This way, all subjects are treated equally.
+
+The formula is:
+\begin{equation}
+    X_{normalized} = \frac{X - X_{min}}{X_{max} - X_{min}}
+\end{equation}
+
+\textbf{Simple Explanation:} Imagine the lowest mark someone got was 20 ($X_{min}$), the highest was 100 ($X_{max}$), and your mark was 60 ($X$). 
+The calculation is: $\frac{60 - 20}{100 - 20} = \frac{40}{80} = 0.5$. Your normalized score is 0.5 (or 50\%).
+
+\section{Step 3: Building the Machine Learning Model}
+Because our data only has exam scores and does not tell us what jobs the students actually got in the real world, we had to use a type of Artificial Intelligence called \textbf{Unsupervised Learning}. This means the computer tries to find hidden patterns or groups on its own.
+
+\subsection{The Math: K-Means Clustering}
+We used an algorithm called \textbf{K-Means Clustering}. Imagine plotting every student on a giant graph based on their Math, Physics, Biology, and Chemistry scores. K-Means tries to find natural groups (clusters) of students who are similar to each other.
+
+How does it know who is similar? It uses the \textbf{Euclidean Distance} formula to measure the distance between two students ($p$ and $q$) on the graph:
+\begin{equation}
+    Distance(p, q) = \sqrt{(p_{math} - q_{math})^2 + (p_{bio} - q_{bio})^2 + \dots}
+\end{equation}
+
+\textbf{Simple Explanation:} The algorithm picks 'K' random spots on the graph to be the center of the groups (called Centroids). Every student is assigned to the closest center. Then, the center moves to the middle of all its new students. It repeats this until the groups stop changing. These groups represent "Aptitude Profiles" (for example, the Science group, the Math group, etc.).
+
+\subsection{The Math: The Elbow Method}
+How do we know how many groups ('K') to make? Should we divide students into 3 groups? 4 groups? 10 groups? We use the \textbf{Elbow Method}.
+
+We calculate something called \textbf{Inertia}, which is the sum of the squared distances between each student and the center of their group. 
+\begin{equation}
+    Inertia = \sum_{i=1}^{n} (Student_i - Center)^2
+\end{equation}
+
+\textbf{Simple Explanation:} If Inertia is small, the groups are tight and well-formed. We test 2 groups, 3 groups, 4 groups, etc., and plot the Inertia on a graph. The line will go down sharply and then start to flatten out (looking like a human arm). The "elbow" point is the best number of groups to use.
+
+\section{Step 4: Making Career Recommendations}
+After the K-Means algorithm finds the groups (for example, it finds 4 distinct types of students), a human expert steps in. We look at the average scores of each group.
+\begin{itemize}
+    \item If Group 1 has very high Biology and Chemistry scores, we map this group to the \textbf{Life Sciences \& Healthcare} career path.
+    \item If Group 2 has very high Math and Physics scores, we map it to the \textbf{Engineering \& Technology} career path.
+\end{itemize}
+
+Finally, we built a Python function. Now, if you give the program a brand new student's O-Level scores, it will find which group they belong to using the math formulas above, and instantly recommend the best career path for their natural skills!
+
+\section{Step 5: The Mathematical Framework of the Reference Model}
+While our current K-Means model successfully handles the cross-sectional O-Level data, the reference paper for this thesis introduces a highly advanced \textbf{Monotonic Nonlinear State-Space (MNSS)} model. To fully align our thesis with this paper, we must understand the core mathematics behind its innovation and how it applies to our future work.
+
+\subsection{Latent Variables and State-Space Models}
+The core philosophy of the paper is that \textit{jobs} are observations ($x$), but the \textit{skills} required to get them are hidden, or \textbf{latent variables} ($z$). Instead of just modeling $P(x)$, the paper models the joint probability $P(x, z)$.
+
+This is achieved using a State-Space Model with two equations:
+\begin{enumerate}
+    \item \textbf{Transition Equation (Skill Acquisition):} $z_t = f(z_{t-1}, u_t)$. This means that today's skills ($z_t$) are a function of yesterday's skills ($z_{t-1}$) and the current job experience ($u_t$).
+    \item \textbf{Observation Equation (Emission):} $x_t = g(z_t)$. This means that a person's current hidden skills generate their observed job title.
+\end{enumerate}
+In our current pipeline, the normalized O-Level scores act as the initial educational observation that initializes the first hidden skill state, $z_1$.
+
+\subsection{The Monotonic Assumption and Binary Vectors}
+The paper represents the hidden skill state as a binary vector $z \in \{0, 1\}^D$, where 1 means mastered and 0 means not mastered. The major mathematical innovation is the \textbf{Monotonic Assumption}: $z_t \ge z_{t-1}$ (element-wise). This means skills can only increase; a user never forgets a skill.
+
+To model this probabilistically, they use a \textbf{Monotonic Gated Recurrent Unit (GRU)}:
+\begin{equation}
+    \gamma_t = \gamma_{t-1} + (1 - \gamma_{t-1}) \odot o_t
+\end{equation}
+Here, $\gamma$ is the probability of mastering a skill. The term $(1 - \gamma_{t-1})$ represents the remaining skill gap, meaning a new job can only fill a percentage ($o_t$) of what is left to learn. This elegantly models \textit{diminishing returns} in learning.
+
+\subsection{Variational Inference and the ELBO Objective}
+Because the true hidden skills ($z$) are never observed, calculating the exact posterior probability $P(z|x)$ is mathematically intractable. The authors use \textbf{Variational Inference}, introducing an approximation distribution $q(z)$.
+
+The model is optimized by maximizing the \textbf{Evidence Lower Bound (ELBO)}:
+\begin{equation}
+    ELBO = \mathbb{E}[\log P(x|z)] - D_{KL}(q || P)
+\end{equation}
+\begin{itemize}
+    \item \textbf{First Term (Reconstruction):} $\mathbb{E}[\log P(x|z)]$. This asks: Can our estimated hidden skills accurately reconstruct the observed career history?
+    \item \textbf{Second Term (Kullback-Leibler Divergence):} $D_{KL}(q || P)$. This penalizes the model if the approximated skills $q(z)$ drift too far from our prior assumptions $P(z)$.
+\end{itemize}
+
+\subsection{Skill Gap Optimization and Path Search}
+Finally, the model calculates the exact skills a person needs to reach a career goal using an optimization formula with $L_1$ regularization:
+\begin{equation}
+    \min_{z} \left[ -\log P(\text{Goal} | z) + \lambda ||z - z_t||_1 \right]
+\end{equation}
+This formula maximizes the probability of reaching the target job while heavily penalizing (via $\lambda$) changing too many skills. This forces the AI to recommend a \textit{small, practical set} of new skills to learn. The model then uses \textbf{beam search} to string together the most mathematically probable sequence of career hops to reach that goal.
+
+\section{Summary}
+Up to this point, we have successfully taken messy, inconsistent O-Level data, cleaned it using math (Normalization), and built an Artificial Intelligence model (K-Means Clustering) that can automatically group students by their skills and recommend future careers. This lays the perfect mathematical foundation to implement the advanced Skill Gap and Path Planning features required for the final thesis.
+
+\end{document}
