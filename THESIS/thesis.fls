@@ -567,6 +567,9 @@ OUTPUT thesis.toc
 INPUT ./text/acknowledgement.tex
 INPUT ./text/acknowledgement.tex
 INPUT text/acknowledgement.tex
+INPUT ./thesis.acr
+INPUT ./thesis.acr
+INPUT thesis.acr
 INPUT ./thesis.lot
 INPUT ./thesis.lot
 INPUT thesis.lot
