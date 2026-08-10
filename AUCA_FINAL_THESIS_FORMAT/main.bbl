@@ -1,0 +1,179 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{apa/apasortcite//global/global}
+    \entry{ishiki2011}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=4d945b3bc605ad89107ac6ba34328950}{%
+           family={Ishiki},
+           familyi={I\bibinitperiod},
+           given={Mantaro},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=51d11e20c9c67a8f8d2bc718a999104f}{%
+           family={Kuwabara},
+           familyi={K\bibinitperiod},
+           given={Toshihiko},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1eb95ec015e3394a06eb4abb13f43964}{%
+           family={Hayashida},
+           familyi={H\bibinitperiod},
+           given={Yasuhiro},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{83a45bfb12c6490e884581ba11d6ee49}
+      \strng{fullhash}{3c6f963703ee9419760b63973ab541ed}
+      \strng{bibnamehash}{3c6f963703ee9419760b63973ab541ed}
+      \strng{authorbibnamehash}{3c6f963703ee9419760b63973ab541ed}
+      \strng{authornamehash}{83a45bfb12c6490e884581ba11d6ee49}
+      \strng{authorfullhash}{3c6f963703ee9419760b63973ab541ed}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International journal of material forming}
+      \field{number}{2}
+      \field{title}{Measurement and analysis of differential work hardening behavior of pure titanium sheet using spline function}
+      \field{volume}{4}
+      \field{year}{2011}
+      \field{pages}{193\bibrangedash 204}
+      \range{pages}{12}
+    \endentry
+    \entry{David}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=41508b5b352ddaec0c639ba3a9a53614}{%
+           family={Lamport},
+           familyi={L\bibinitperiod},
+           given={L[eslie]\bibnamedelima A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{41508b5b352ddaec0c639ba3a9a53614}
+      \strng{fullhash}{41508b5b352ddaec0c639ba3a9a53614}
+      \strng{bibnamehash}{41508b5b352ddaec0c639ba3a9a53614}
+      \strng{authorbibnamehash}{41508b5b352ddaec0c639ba3a9a53614}
+      \strng{authornamehash}{41508b5b352ddaec0c639ba3a9a53614}
+      \strng{authorfullhash}{41508b5b352ddaec0c639ba3a9a53614}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{G-Animal's Journal}
+      \field{month}{7}
+      \field{number}{7}
+      \field{title}{The Gnats and Gnus Document Preparation System}
+      \field{volume}{41}
+      \field{year}{1986}
+      \field{pages}{73+}
+      \range{pages}{-1}
+    \endentry
+  \enddatalist
+  \datalist[entry]{apa/global//global/global}
+    \entry{ishiki2011}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=4d945b3bc605ad89107ac6ba34328950}{%
+           family={Ishiki},
+           familyi={I\bibinitperiod},
+           given={Mantaro},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=51d11e20c9c67a8f8d2bc718a999104f}{%
+           family={Kuwabara},
+           familyi={K\bibinitperiod},
+           given={Toshihiko},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1eb95ec015e3394a06eb4abb13f43964}{%
+           family={Hayashida},
+           familyi={H\bibinitperiod},
+           given={Yasuhiro},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{83a45bfb12c6490e884581ba11d6ee49}
+      \strng{fullhash}{3c6f963703ee9419760b63973ab541ed}
+      \strng{bibnamehash}{3c6f963703ee9419760b63973ab541ed}
+      \strng{authorbibnamehash}{3c6f963703ee9419760b63973ab541ed}
+      \strng{authornamehash}{83a45bfb12c6490e884581ba11d6ee49}
+      \strng{authorfullhash}{3c6f963703ee9419760b63973ab541ed}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International journal of material forming}
+      \field{number}{2}
+      \field{title}{Measurement and analysis of differential work hardening behavior of pure titanium sheet using spline function}
+      \field{volume}{4}
+      \field{year}{2011}
+      \field{pages}{193\bibrangedash 204}
+      \range{pages}{12}
+    \endentry
+    \entry{David}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=41508b5b352ddaec0c639ba3a9a53614}{%
+           family={Lamport},
+           familyi={L\bibinitperiod},
+           given={L[eslie]\bibnamedelima A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{41508b5b352ddaec0c639ba3a9a53614}
+      \strng{fullhash}{41508b5b352ddaec0c639ba3a9a53614}
+      \strng{bibnamehash}{41508b5b352ddaec0c639ba3a9a53614}
+      \strng{authorbibnamehash}{41508b5b352ddaec0c639ba3a9a53614}
+      \strng{authornamehash}{41508b5b352ddaec0c639ba3a9a53614}
+      \strng{authorfullhash}{41508b5b352ddaec0c639ba3a9a53614}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{G-Animal's Journal}
+      \field{month}{7}
+      \field{number}{7}
+      \field{title}{The Gnats and Gnus Document Preparation System}
+      \field{volume}{41}
+      \field{year}{1986}
+      \field{pages}{73+}
+      \range{pages}{-1}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

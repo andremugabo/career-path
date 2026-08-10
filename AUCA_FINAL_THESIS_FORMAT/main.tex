@@ -1,0 +1,95 @@
+\documentclass[hidelinks,stu, 12pt, letterpaper, donotrepeattitle, floatsintext]{apa7}
+
+%%%%%%%%%%%%%%%%
+% Front Matter %
+%%%%%%%%%%%%%%%%
+
+\input{packages.tex}							% Declare packages
+
+\input{setup.tex}								% Custom setup
+\input{abbreviations.tex} 						% Define abbreviations
+
+
+\begin{document}
+\title{AUCA thesis format}
+\shorttitle{AUCA Thesis}
+%%%%%%%%%%
+% covers %
+%%%%%%%%%%
+
+\input{covers/cover_outer.tex}					% Text for outer cover
+\input{covers/cover_inner.tex}					% Text for inner cover
+
+
+%%%%%%%%%%%%%%%%%%%%%
+% Table of Contents %
+%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman} 
+\tableofcontents								% Add table of contents	
+%\thispagestyle{empty}							% Suppress the page number
+\clearpage
+%%%%%%%%%%%%%%%%%
+% preliminaries %
+%%%%%%%%%%%%%%%%%
+
+%\pagenumbering{roman} 							% Start page numbering in Roman numerals
+
+\input{text/acknowledgement.tex} 						    % Text for acknowledgement
+
+\printglossary[									% Add glossary
+	type=\acronymtype,							% Type: acronyms
+    style=long,									% Set style of glossary
+    title=List of Abbreviations,				% Set title of glossary
+    toctitle=List of Abbreviations				% Add glossary to table on contents
+    ]			
+% \clearpage
+\printglossary[									% Add glossary
+	type=\glsdefaulttype,						% Type: acronyms
+    style=long									% Set style of glossary
+    ]	
+\clearpage
+
+
+
+\addcontentsline{toc}{section}{\listtablename} 	% Add list of figures to table of contents
+\listoftables									% Add list of figures
+\clearpage										
+
+\addcontentsline{toc}{section}{\listfigurename} % Add list of figures to table of contents
+\listoffigures									% add list of figures
+\clearpage
+
+
+\input{text/abstract.tex} 						% Text for English Abstract
+
+%%%%%%%%%%%%%
+% Main Text %
+%%%%%%%%%%%%%
+
+\pagenumbering{arabic}							% Start page numbering in Arabic numerals
+
+\setcounter{table}{0}		% Reset table counter
+\setcounter{figure}{0}		% Reset figure counter
+
+\input{text/1-Introduction.tex}
+\newpage
+\input{text/2-lit_review.tex}	
+\newpage
+\input{text/3-Methodology.tex}	
+\newpage
+\input{text/4-Data_Analysis_Findings.tex}	
+\newpage
+\input{text/5-Conclusion.tex}	
+\newpage
+\input{text/Appendices.tex} 					% 
+% \input{text/abstract}		      		% 
+
+\addcontentsline{toc}{section}{\refname}		% Add references section to table of contents
+		% Add bibliography file
+\printbibliography
+
+
+\end{document}
+
+\end{document}
+
