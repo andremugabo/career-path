@@ -35,6 +35,7 @@
 %\pagenumbering{roman} 							% Start page numbering in Roman numerals
 
 \input{text/acknowledgement.tex}
+\clearpage
 
 \printglossary[
 	type=\acronymtype,
@@ -42,19 +43,24 @@
     title=List of Abbreviations,
     toctitle=List of Abbreviations
     ]			
+\clearpage
 
 \printglossary[
 	type=\glsdefaulttype,
     style=long
     ]	
 
+\clearpage
 \addcontentsline{toc}{section}{\listtablename}
 \listoftables
 
+\clearpage
 \addcontentsline{toc}{section}{\listfigurename}
 \listoffigures
 
+\clearpage
 \input{text/abstract.tex}
+\clearpage
 
 %%%%%%%%%%%%%
 % Main Text %

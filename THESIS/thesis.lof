@@ -1,7 +1,7 @@
 \babel@toc {american}{}\relax 
-\contentsline {figure}{\numberline {1}{\ignorespaces Distribution of Normalized STEM Scores across the Dataset}}{106}{figure.caption.216}%
-\contentsline {figure}{\numberline {2}{\ignorespaces Pearson Correlation Matrix demonstrating internal variance between STEM Subjects}}{107}{figure.caption.217}%
-\contentsline {figure}{\numberline {3}{\ignorespaces Distribution of Synthesized Positive Labels across Health Sectors}}{107}{figure.caption.218}%
-\contentsline {figure}{\numberline {4}{\ignorespaces Multi-Label Co-occurrence Matrix demonstrating interrelated pathways}}{108}{figure.caption.219}%
-\contentsline {figure}{\numberline {5}{\ignorespaces Visual Comparison of Subset Accuracy and Micro F1-Score across Models}}{109}{figure.caption.222}%
-\contentsline {figure}{\numberline {6}{\ignorespaces Relative Feature Importance in the XGBoost \blx@tocontentsinit {0}\parencite {chen2016xgboost} base estimator for the Medicine track}}{110}{figure.caption.223}%
+\contentsline {figure}{\numberline {1}{\ignorespaces Distribution of Normalized STEM Scores across the Dataset}}{105}{figure.caption.216}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Pearson Correlation Matrix demonstrating internal variance between STEM Subjects}}{106}{figure.caption.217}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Distribution of Synthesized Positive Labels across Health Sectors}}{106}{figure.caption.218}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Multi-Label Co-occurrence Matrix demonstrating interrelated pathways}}{107}{figure.caption.219}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Visual Comparison of Subset Accuracy and Micro F1-Score across Models}}{108}{figure.caption.222}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Relative Feature Importance in the XGBoost \blx@tocontentsinit {0}\parencite {chen2016xgboost} base estimator for the Medicine track}}{109}{figure.caption.223}%
