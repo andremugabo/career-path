@@ -1,8 +1,8 @@
 \babel@toc {american}{}\relax 
 \contentsline {section}{Acknowledgements}{xii}{section*.1}%
-\contentsline {section}{List of Tables}{xv}{section*.1}%
-\contentsline {section}{List of Figures}{xvii}{section*.1}%
-\contentsline {section}{Abstract}{xviii}{section*.2}%
+\contentsline {section}{List of Tables}{xiv}{section*.1}%
+\contentsline {section}{List of Figures}{xvi}{section*.1}%
+\contentsline {section}{Abstract}{xvii}{section*.2}%
 \contentsline {section}{Introduction}{1}{section*.3}%
 \contentsline {subsection}{Background of the Study}{2}{section*.4}%
 \contentsline {subsection}{Problem Statement}{4}{section*.5}%
