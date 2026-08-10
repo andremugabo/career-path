@@ -8,16 +8,16 @@
 \contentsline {subsection}{Problem Statement}{4}{section*.5}%
 \contentsline {subsection}{Objective of the Study}{5}{section*.6}%
 \contentsline {subsection}{Research Questions}{6}{section*.7}%
-\contentsline {subsection}{Hypotheses}{7}{section*.8}%
+\contentsline {subsection}{Hypotheses}{6}{section*.8}%
 \contentsline {subsection}{Significance of the Study}{7}{section*.9}%
-\contentsline {subsubsection}{Impact on Students and Parents}{8}{section*.10}%
+\contentsline {subsubsection}{Impact on Students and Parents}{7}{section*.10}%
 \contentsline {subsubsection}{Impact on Educational Institutions and Counselors}{8}{section*.11}%
-\contentsline {subsubsection}{Impact on National Healthcare Infrastructure and Policy}{9}{section*.12}%
+\contentsline {subsubsection}{Impact on National Healthcare Infrastructure and Policy}{8}{section*.12}%
 \contentsline {subsection}{Scope of the Study}{9}{section*.13}%
 \contentsline {subsection}{Limitations and Assumptions of the Study}{10}{section*.14}%
-\contentsline {subsubsection}{Assumptions}{11}{section*.15}%
+\contentsline {subsubsection}{Assumptions}{10}{section*.15}%
 \contentsline {subsubsection}{Limitations}{11}{section*.16}%
-\contentsline {subsection}{Operational Definition of Terms}{12}{section*.17}%
+\contentsline {subsection}{Operational Definition of Terms}{11}{section*.17}%
 \contentsline {section}{Literature Review}{13}{section*.18}%
 \contentsline {subsection}{Theoretical Framework: From Academic Performance to Career Pathway}{13}{section*.19}%
 \contentsline {subsection}{Chronological Evolution of Educational Guidance Systems}{14}{section*.20}%
