@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.23)  10 AUG 2026 19:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.23)  10 AUG 2026 19:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1811,11 +1811,7 @@ l.37 \end{titlepage}
 
 ]
 No file thesis.acr.
-[13
-
-] (./thesis.lot [14
-
-])
+[13] (./thesis.lot [14])
 \tf@lot=\write12
 \openout12 = `thesis.lot'.
 
@@ -1823,22 +1819,16 @@ No file thesis.acr.
 \tf@lof=\write13
 \openout13 = `thesis.lof'.
 
- [16
-
-] (./text/abstract.tex [17
-
-])
-[18] (./text/1-Introduction.tex
+ [16] (./text/abstract.tex [17])
+(./text/1-Introduction.tex
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.12 
-      [1
-
-{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
-[2] [3] [4{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}
-{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
+l.6 
+     [1] [2{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
+}] [3] [4{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{
+/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
 6.
 
@@ -2024,26 +2014,26 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 [101]) [102] (./text/4-Data_Analysis_Findings.tex [103
 
 ]
-<figures/stem_boxplot.pdf, id=2657, 722.7pt x 433.62pt>
+<figures/stem_boxplot.pdf, id=2653, 722.7pt x 433.62pt>
 File: figures/stem_boxplot.pdf Graphic file (type pdf)
 <use figures/stem_boxplot.pdf>
 Package pdftex.def Info: figures/stem_boxplot.pdf  used on input line 32.
 (pdftex.def)             Requested size: 375.80544pt x 225.48369pt.
  [104]
-<figures/stem_correlation.pdf, id=2668, 578.16pt x 433.62pt>
+<figures/stem_correlation.pdf, id=2664, 578.16pt x 433.62pt>
 File: figures/stem_correlation.pdf Graphic file (type pdf)
 <use figures/stem_correlation.pdf>
 Package pdftex.def Info: figures/stem_correlation.pdf  used on input line 41.
 (pdftex.def)             Requested size: 352.31625pt x 264.23654pt.
  [105 <./figures/stem_boxplot.pdf>]
-<figures/target_distribution.pdf, id=2722, 722.7pt x 433.62pt>
+<figures/target_distribution.pdf, id=2718, 722.7pt x 433.62pt>
 File: figures/target_distribution.pdf Graphic file (type pdf)
 <use figures/target_distribution.pdf>
 Package pdftex.def Info: figures/target_distribution.pdf  used on input line 50
 .
 (pdftex.def)             Requested size: 375.80544pt x 225.48369pt.
  [106 <./figures/stem_correlation.pdf> <./figures/target_distribution.pdf>]
-<figures/label_cooccurrence.pdf, id=2815, 722.7pt x 578.16pt>
+<figures/label_cooccurrence.pdf, id=2811, 722.7pt x 578.16pt>
 File: figures/label_cooccurrence.pdf Graphic file (type pdf)
 <use figures/label_cooccurrence.pdf>
 Package pdftex.def Info: figures/label_cooccurrence.pdf  used on input line 59.
@@ -2054,12 +2044,12 @@ Package pdftex.def Info: figures/label_cooccurrence.pdf  used on input line 59.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [107 <./figures/label_cooccurrence.pdf>]
-<figures/model_performance.pdf, id=2872, 722.7pt x 433.62pt>
+<figures/model_performance.pdf, id=2867, 722.7pt x 433.62pt>
 File: figures/model_performance.pdf Graphic file (type pdf)
 <use figures/model_performance.pdf>
 Package pdftex.def Info: figures/model_performance.pdf  used on input line 91.
 (pdftex.def)             Requested size: 399.29463pt x 239.57684pt.
-<figures/feature_importance.pdf, id=2873, 578.16pt x 433.62pt>
+<figures/feature_importance.pdf, id=2868, 578.16pt x 433.62pt>
 File: figures/feature_importance.pdf Graphic file (type pdf)
 <use figures/feature_importance.pdf>
 Package pdftex.def Info: figures/feature_importance.pdf  used on input line 98.
@@ -2290,7 +2280,7 @@ Overfull \hbox (28.57805pt too wide) in alignment at lines 424--524
 
 [166] [167] [168] [169] [170] [171] [172] [173] [174] [175] [176] [177]
 [178] [179]) [180]
-<Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf, id=3729, 597.23125pt x 844
+<Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf, id=3725, 597.23125pt x 844
 .15375pt>
 File: Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf Graphic file (type pdf
 )
@@ -2304,7 +2294,7 @@ File: Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf Graphic file (type pdf
 Package pdftex.def Info: Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf  us
 ed on input line 319.
 (pdftex.def)             Requested size: 597.22978pt x 844.15169pt.
-<Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf, id=3732, page=1, 597.23125
+<Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf, id=3728, page=1, 597.23125
 pt x 844.15375pt>
 File: Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf Graphic file (type pdf
 )
@@ -2361,8 +2351,8 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43517 strings out of 474116
- 795252 string characters out of 5743682
+ 43516 strings out of 474116
+ 795242 string characters out of 5743682
  2113187 words of memory out of 5000000
  63975 multiletter control sequences out of 15000+600000
  618346 words of font info for 94 fonts, out of 8000000 for 9000
@@ -2384,10 +2374,10 @@ s/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1
 /urw/times/utmb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times
 /utmbi8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.p
 fb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (203 pages, 2046719 bytes).
+Output written on thesis.pdf (202 pages, 2046257 bytes).
 PDF statistics:
- 4068 PDF objects out of 4296 (max. 8388607)
- 3535 compressed objects within 36 object streams
- 1114 named destinations out of 1200 (max. 500000)
+ 4064 PDF objects out of 4296 (max. 8388607)
+ 3532 compressed objects within 36 object streams
+ 1113 named destinations out of 1200 (max. 500000)
  2391 words of extra memory for PDF output out of 10000 (max. 10000000)
 
