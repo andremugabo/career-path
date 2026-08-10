@@ -1,0 +1,778 @@
+\section{Methodology}
+
+This chapter exhaustively details the mathematical, computational, and operational methodological approach employed to construct the explainable multi-label \parencite{tsoumakas2007multi} career guidance model. It rigorously outlines the quantitative research design, the specifics of data collection and preprocessing strategies, the deep architectural configuration of the machine learning algorithms, the mathematical formulation of the explainability layer, and the multi-label \parencite{tsoumakas2007multi} evaluation metrics used to assess the model's performance.
+
+\subsection{Research Design}
+
+This study adopts a highly structured quantitative, predictive modeling research design grounded in the principles of computational data science. It relies heavily on secondary, historical, and numerical continuous data collected directly from national examination records to train advanced machine learning models. 
+
+The research follows a strict, systematic data science lifecycle architecture:
+\begin{enumerate}
+    \item \textbf{Data Acquisition \& Aggregation:} Compiling disjointed yearly datasets into a singular longitudinal database.
+    \item \textbf{Exploratory Data Analysis (EDA):} Statistically analyzing feature distributions, correlations, and identifying systemic outliers.
+    \item \textbf{Data Preprocessing \& Feature Engineering:} Handling missing values, normalizing feature vectors, and transforming text targets into mathematical multi-hot encoded vectors.
+    \item \textbf{Model Training \& Hyperparameter Tuning:} Implementing the Classifier Chains \parencite{read2011classifier} meta-algorithm and tuning the base learners (XGBoost, RF, DT, MLP).
+    \item \textbf{Explainability Integration (XAI):} Extracting global feature importance and generating local counterfactual \parencite{wachter2017counterfactual} explanations.
+    \item \textbf{Mathematical Evaluation:} Assessing the algorithms against strict multi-label \parencite{tsoumakas2007multi} mathematical metrics rather than simple accuracy.
+\end{enumerate}
+The design specifically transitions from a traditional single-target, mutually exclusive prediction framework to a comprehensive multi-target (multi-label) probabilistic ranking framework.
+
+\subsection{Data Collection and Description}
+
+The primary dataset utilized in this research consists of Rwandan Ordinary Level (S3) national examination records, generously aggregated over an extended longitudinal period spanning from 2017 to 2025. This multi-year aggregation provides a highly robust volume of data—comprising thousands of individual student records—which is absolutely necessary for training deep, advanced machine learning algorithms without severe overfitting.
+
+The dataset primarily focuses on the raw numerical marks obtained by students in the core STEM subjects deemed strictly essential for advanced health sector educational pathways. The key input feature vector ($X$), mathematically represented as $x_i \in \mathbb{R}^4$, extracted from the dataset includes:
+\begin{itemize}
+    \item $x_1$: \textbf{Biology and Health Sciences raw marks}
+    \item $x_2$: \textbf{Chemistry raw marks}
+    \item $x_3$: \textbf{Mathematics raw marks}
+    \item $x_4$: \textbf{Physics raw marks}
+\end{itemize}
+
+Additional administrative and demographic features such as \textit{candidate\_code}, \textit{School code}, and \textit{level} are retained in the raw database for unique identification and potential future bias analysis. However, they are strictly excluded from the mathematical model training matrix to actively prevent the algorithm from learning geographic, institutional, or socioeconomic biases, ensuring the predictions are based purely on academic cognitive merit.
+
+\subsection{Data Preprocessing and Target Transformation}
+
+Raw educational data exported from government databases is rarely, if ever, structurally suitable for immediate algorithmic training. The data preprocessing pipeline involves several critical mathematical and programmatic steps to ensure absolute data integrity and structural model compatibility.
+
+\subsubsection{Handling Missing Values and Normalization}
+Any student records containing missing values in the core subject continuous columns are algorithmically imputed. Rather than using the dataset mean, which is highly sensitive to extreme outliers, missing values are imputed using the median score of that specific year to preserve the true statistical distribution. Records that are heavily corrupted or missing more than 50\% of their features are dropped entirely from the matrix.
+
+Because specific gradient-based optimization algorithms (like the Stochastic Gradient Descent used in the Multi-Layer Perceptron) are highly sensitive to the magnitude and scale of input features, the raw marks are mathematically normalized. Min-Max scaling is applied to linearly transform all subject scores to a uniform scale bound strictly between 0 and 1:
+\[
+x_{scaled} = \frac{x - x_{min}}{x_{max} - x_{min}}
+\]
+While tree-based ensemble models (XGBoost, Random Forest) are scale-invariant and do not strictly require this normalization to split nodes, maintaining a uniform scale across all models is mathematically essential for generating consistent distance calculations ($L2$ norms) during the counterfactual \parencite{wachter2017counterfactual} explanation generation later in the pipeline.
+
+\subsubsection{Covariance and Feature Collinearity Analysis}
+Before feeding the normalized matrix into the multi-label \parencite{tsoumakas2007multi} models, the internal relationships between the predictive features are rigorously analyzed via a Covariance Matrix ($\Sigma$) and Pearson Correlation Coefficients ($r$). For any two features $X$ and $Y$ (e.g., Mathematics and Physics), the sample covariance is computed as:
+\[
+Cov(X, Y) = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{n - 1}
+\]
+And the normalized Pearson correlation coefficient is:
+\[
+r_{xy} = \frac{Cov(X, Y)}{s_x s_y}
+\]
+Where $s_x$ and $s_y$ are the sample standard deviations. Identifying high positive collinearity (e.g., $r > 0.8$) between specific subjects computationally validates the decision to use Classifier Chains \parencite{read2011classifier}, as it empirically proves that a student's cognitive capabilities are not independent silos, but rather highly correlated, intersecting skill sets.
+
+\subsubsection{Multi-Label Target Encoding (Multi-Hot Encoding)}
+In a traditional dataset structure, a student might have a single string label indicating their final chosen career (e.g., "Nurse"). To train a multi-label \parencite{tsoumakas2007multi} algorithmic model, these string targets must be mathematically transformed into vectors. Let $K$ be the total predefined number of possible, distinct health sector careers (e.g., $l_1=$ Medicine, $l_2=$ Nursing, $l_3=$ Pharmacy, $l_4=$ Midwifery, $l_5=$ Public Health). 
+
+The target output for each student is mathematically encoded as a binary vector $Y \in \{0, 1\}^K$. For instance, if a student's rigorous academic profile mathematically qualifies them for both Medicine and Pharmacy, but not the others, their target vector would be encoded as:
+\[
+Y = [1, 0, 1, 0, 0]
+\]
+This multi-hot encoding allows the loss functions within the algorithms to mathematically penalize and learn the overlapping, non-exclusive academic requirements for different careers simultaneously.
+
+\subsection{Model Architecture and Implementation}
+
+The algorithmic core of this methodology is the application of the \textbf{Classifier Chains (CC)} meta-algorithm combined with highly optimized base learners.
+
+\subsubsection{The Classifier Chain \parencite{read2011classifier} Mechanism}
+As rigorously discussed in the literature review, career compatibilities are highly statistically correlated. The CC technique accounts for this dependency by training $K$ sequential binary classifiers. The order of the chain is a critical hyperparameter that can be statically defined, optimized via grid search, or randomly ensembled (creating an Ensemble of Classifier Chains \parencite{read2011classifier} or ECC). 
+
+For a given student input feature vector $x$, the sequential probabilistic calculation proceeds as follows:
+\begin{enumerate}
+    \item The first classifier calculates the probability of the first career given the features: $P(y_1 | x)$.
+    \item The second classifier calculates the probability of the second career given both the features and the prediction of the first: $P(y_2 | x, y_1)$.
+    \item The final classifier calculates the conditional probability given all previous predictions: $P(y_K | x, y_1, y_2, \dots, y_{K-1})$.
+\end{enumerate}
+This sequential mechanism mathematically ensures that if a student is highly recommended for one highly demanding medical field (e.g., Medicine), the probabilities for heavily related fields (e.g., Pharmacy) are mathematically adjusted upwards based on the learned correlations within the chain.
+
+\subsubsection{Base Algorithms Configuration}
+Four mathematically distinct algorithms are utilized, tuned, and compared as the base classifiers ($C_k$) within the chain. Their internal mathematical mechanisms dictate their performance and ability to model the non-linear feature space:
+
+\begin{enumerate}
+    \item \textbf{Decision Tree (DT):} Serves as a baseline, highly interpretable model. The algorithm recursively partitions the feature space. At each node $m$, representing a region $R_m$ with $N_m$ observations, the algorithm searches for a splitting variable $j$ and split point $s$ that minimizes the Gini impurity. If $p_{mk}$ is the proportion of class $k$ observations in node $m$, the Gini index is defined as:
+    \[
+    G(m) = \sum_{k=1}^{K} p_{mk}(1 - p_{mk})
+    \]
+    The split $(j,s)$ is chosen to maximize the impurity decrease: $\Delta G = G(parent) - (w_{left}G(left) + w_{right}G(right))$. Hyperparameters such as \texttt{max\_depth} and \texttt{min\_samples\_split} are strictly constrained to prevent catastrophic overfitting on continuous data.
+
+    \item \textbf{Random Forest (RF):} An advanced ensemble method that massively reduces the variance of individual decision trees by applying bootstrap aggregating (bagging) and random feature subspace selection. For $B$ trees, a bootstrap sample $Z^{*b}$ of size $N$ is drawn from the training data. A tree $T_b$ is grown, but at each split, only a random subset of $m \approx \sqrt{p}$ features is considered. The final probability prediction for a class $k$ given input $x$ is the averaged vote:
+    \[
+    \hat{P}_{RF}(Y=k | x) = \frac{1}{B} \sum_{b=1}^{B} \hat{P}_{T_b}(Y=k | x)
+    \]
+    By injecting randomness, the trees become mathematically de-correlated, forcing diversity and creating an incredibly robust model against statistical noise.
+
+    \item \textbf{XGBoost (eXtreme Gradient Boosting):} A highly optimized, regularized boosting algorithm that builds trees sequentially to minimize the residual errors of prior trees. At step $t$, it seeks to add a tree $f_t$ that minimizes the objective:
+    \[
+    \text{Obj}^{(t)} = \sum_{i=1}^{n} L\left(y_i, \hat{y}_i^{(t-1)} + f_t(x_i)\right) + \Omega(f_t)
+    \]
+    XGBoost \parencite{chen2016xgboost} utilizes a second-order Taylor expansion to approximate the loss function $L$, computing the first derivative (gradient) $g_i = \partial_{\hat{y}_i^{(t-1)}} L(y_i, \hat{y}_i^{(t-1)})$ and second derivative (hessian) $h_i = \partial_{\hat{y}_i^{(t-1)}}^2 L(y_i, \hat{y}_i^{(t-1)})$. The optimal leaf weight $w_j^*$ for leaf $j$ containing instance set $I_j$ is mathematically derived as:
+    \[
+    w_j^* = -\frac{\sum_{i \in I_j} g_i}{\sum_{i \in I_j} h_i + \lambda}
+    \]
+    where $\lambda$ is the $L2$ regularization term preventing overly large weights. The learning rate ($\eta$) scales this weight addition to prevent early overfitting.
+
+    \item \textbf{Multi-Layer Perceptron (MLP):} A deep feedforward neural network architecture. The network is configured with multiple hidden layers utilizing the Rectified Linear Unit (ReLU) activation function: $a^{(l)} = \max(0, W^{(l)}a^{(l-1)} + b^{(l)})$. The output layer utilizes the Sigmoid activation function $\sigma(z) = \frac{1}{1 + e^{-z}}$ to map raw logits to probability bounds $[0, 1]$. The network minimizes the Binary Cross-Entropy (BCE) loss:
+    \[
+    \mathcal{L}_{BCE} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]
+    \]
+    The Adam optimizer computes gradients via the chain rule (backpropagation). For a weight $w_{jk}^{(l)}$, the gradient update utilizes first and second moment estimates of the gradient:
+    \[
+    w_{jk}^{(l)} \leftarrow w_{jk}^{(l)} - \alpha \frac{\hat{m}}{\sqrt{\hat{v}} + \epsilon}
+    \]
+    where $\hat{m}$ and $\hat{v}$ are the bias-corrected moving averages of the gradient and squared gradient, respectively. This allows for highly adaptive, automated learning rates on a per-parameter basis.
+\end{enumerate}
+
+\subsection{The Intelligence Layers: Explainability and Counterfactuals}
+
+A paramount objective of this thesis is to shatter the black-box nature of advanced ML models. Two specific XAI techniques are mathematically implemented:
+
+\subsubsection{Global Explanation: Feature Importance Ranking}
+For the tree-based ensemble models (Random Forest and XGBoost), global feature importance is mathematically calculated by tracking how much each specific feature (e.g., the Mathematics score) decreases the overall impurity (calculated via Gini impurity or entropy) across all nodes in all trees where that feature is used to split the data. The total decrease in node impurity is weighted by the probability of reaching that node. This allows the system to generate a highly accurate global explanation, empirically proving which STEM subjects dictate success in specific health careers.
+
+\subsubsection{Local Explanation: Counterfactual \parencite{wachter2017counterfactual} Generation}
+For local explainability (explaining a single student's unique recommendation), the system utilizes a complex mathematical search to generate a counterfactual \parencite{wachter2017counterfactual}. If a student strongly desires to study Medicine but is rejected by the model ($f(x) = 0$), the algorithm computationally searches for the closest theoretical, fictional student profile $x^*$ that \textit{is} accepted ($f(x^*) = 1$). 
+
+This is formulated strictly as a constrained mathematical optimization problem. The primary objective is to minimize the distance $d(x, x')$ between the student's actual normalized scores $x$ and the required theoretical scores $x'$. While the Manhattan distance ($L1$ norm, defined as $\sum |x_i - x_i'|$) promotes sparsity (changing only one subject at a time), this thesis specifically utilizes the Euclidean distance ($L2$ norm) to encourage the model to suggest smaller, simultaneous improvements across multiple subjects, which is far more realistic pedagogically than expecting a massive jump in a single subject.
+
+The optimization equation is formulated as:
+\[
+x^* = \arg\min_{x'} \left( \sqrt{\sum_{i=1}^{m} (x_i - x_i')^2} \right) + \lambda \cdot \text{Cost}(x, x')
+\]
+\textbf{Subject to the absolute constraint:} $f(x') = 1$ (The model prediction must flip to positive).
+
+The additional penalty term, $\lambda \cdot \text{Cost}(x, x')$, is critical for ensuring the generated counterfactual \parencite{wachter2017counterfactual} is practically actionable in the real world. For example, it is mathematically impossible for a student to travel back in time and lower their score. Therefore, the cost function heavily penalizes or entirely forbids negative perturbations (where $x_i' < x_i$). 
+
+By computationally solving this constrained optimization space using gradient-free search algorithms (as tree-based models are non-differentiable), the system outputs precise, mathematically verified advice: \textit{"To achieve a recommendation for Medicine, you must improve your normalized Chemistry score by 0.15 (15\%) and your Biology score by 0.05 (5\%)."}
+
+\subsection{Evaluation Metrics}
+
+Evaluating a multi-label \parencite{tsoumakas2007multi} classification model requires highly specific, multi-dimensional mathematical metrics, as standard single-label accuracy is fundamentally insufficient and misleading. The algorithms are rigorously evaluated and compared using the following matrix calculations:
+
+\begin{itemize}
+    \item \textbf{Hamming Loss:} Measures the fraction of the wrong labels to the total number of labels across the entire dataset. It is highly forgiving of partial correctness. A lower Hamming Loss indicates a superior model.
+    \[
+    \text{Hamming Loss} = \frac{1}{N L} \sum_{i=1}^{N} \sum_{j=1}^{L} \mathbb{I}(y_{i,j} \neq \hat{y}_{i,j})
+    \]
+    where $N$ is the total number of students, $L$ is the number of career labels, and $\mathbb{I}$ is the indicator function that returns 1 if the condition is true and 0 otherwise.
+    
+    \item \textbf{Subset Accuracy (Exact Match Ratio):} The absolute strictest metric available. It requires the predicted label vector to be an exact, perfect 1-to-1 match with the true label vector. If a model predicts $[1, 1, 0, 0, 0]$ and the truth is $[1, 0, 0, 0, 0]$, the subset accuracy for that student is 0.
+    \[
+    \text{Subset Accuracy} = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}(Y_i = \hat{Y}_i)
+    \]
+    
+    \item \textbf{Micro-Averaged F1-Score:} This metric globally aggregates the true positives, false positives, and false negatives across all classes before computing the harmonic mean of precision and recall. It mathematically ensures that less frequent, highly specialized career paths still factor appropriately into the final evaluation score, heavily penalizing models that only predict the majority class.
+    \[
+    \text{Micro-F1} = 2 \cdot \frac{\text{Micro-Precision} \cdot \text{Micro-Recall}}{\text{Micro-Precision} + \text{Micro-Recall}}
+    \]
+\end{itemize}
+
+Through the execution of this rigorous, mathematically grounded methodology, the study aims to produce a multi-label \parencite{tsoumakas2007multi} model that is highly accurate in prediction, strictly correlated across related career labels via Classifier Chains \parencite{read2011classifier}, and completely transparent in its reasoning via integrated counterfactual \parencite{wachter2017counterfactual} optimization.
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 0
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 1
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 2
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 3
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 4
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 5
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 6
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 7
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 8
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 9
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 10
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 11
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 12
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 13
+
+
+
+
+\subsection{Algorithmic Pseudocode and Methodological Workflows}
+
+To ensure complete reproducibility of the methodological framework, the exact algorithmic pseudocodes utilized in the Python implementations are detailed below.
+
+\subsubsection{Classifier Chain Training Protocol}
+The Classifier Chain \parencite{read2011classifier} (CC) architecture fundamentally transforms the Multi-Label \parencite{tsoumakas2007multi} Classification problem into a sequence of binary classification problems, preserving label dependencies. Let $L$ be the set of labels.
+
+\begin{itemize}
+    \item \textbf{Input}: Training data $D = \{(x_i, y_i)\}_{i=1}^N$ where $y_i \in \{0,1\}^{|L|}$.
+    \item \textbf{Output}: A sequence of trained binary classifiers $h_1, h_2, \dots, h_{|L|}$.
+\end{itemize}
+The exact mathematical procedure executed by the \texttt{02\_modeling.py} script is defined as:
+\begin{enumerate}
+    \item Define a label ordering. For this thesis, the natural order [Medicine, Pharmacy, Nursing, Public Health, Biomedical] was utilized.
+    \item For each label $j$ from $1$ to $|L|$:
+    \begin{enumerate}
+        \item Create an augmented feature space $X'_j$ by concatenating the original features $X$ with the true labels $Y_{1:j-1}$.
+        \item Train the base estimator $h_j$ (e.g., XGBoost) on the augmented dataset $(X'_j, Y_j)$.
+    \end{enumerate}
+    \item During inference, since the true labels are unknown, the prediction $\hat{y}_j$ is iteratively appended to the feature space to predict $\hat{y}_{j+1}$.
+\end{enumerate}
+
+\subsubsection{Vectorized Counterfactual \parencite{wachter2017counterfactual} Search Space}
+The $L_2$ minimization algorithm deployed in \texttt{03\_evaluation\_xai.py} utilizes a grid-based constrained search. The complexity of this search is bounded by $\mathcal{O}(S^F)$ where $S$ is the number of discrete step increments and $F$ is the number of mutable features. 
+To prevent combinatorial explosion, the search space was constrained to positive increments (0\% to +50\%) in discrete 5\% steps, reducing the search space to a highly efficient, deterministic boundary that guarantees algorithmic convergence within milliseconds.
+
+\subsection{Architectural Flowchart of Data Processing}
+The end-to-end data pipeline is structured as a Directed Acyclic Graph (DAG). 
+\begin{enumerate}
+    \item \textbf{Ingestion}: Raw CSV loading via Pandas.
+    \item \textbf{Imputation}: Mean imputation for missing academic scores.
+    \item \textbf{Normalization}: Min-Max scaling to map all features to the $L_2$ bounded domain $[0, 1]$.
+    \item \textbf{Synthesis}: Boolean logic thresholding to generate the Multi-Label \parencite{tsoumakas2007multi} Target Matrix.
+    \item \textbf{Evaluation}: 80/20 train-test stratification to validate out-of-sample generalization.
+\end{enumerate}
+
+% Expanded iteration 14
+

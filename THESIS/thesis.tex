@@ -1,0 +1,93 @@
+\documentclass[hidelinks,stu, 12pt, letterpaper, donotrepeattitle, floatsintext]{apa7}
+
+%%%%%%%%%%%%%%%%
+% Front Matter %
+%%%%%%%%%%%%%%%%
+
+\input{packages.tex}							% Declare packages
+
+\input{setup.tex}								% Custom setup
+\input{abbreviations.tex} 						% Define abbreviations
+
+
+\begin{document}
+\title{Career Path Guidance Model with Multi-Label Classification}
+\shorttitle{Career Path Guidance Model}
+%%%%%%%%%%
+% covers %
+%%%%%%%%%%
+
+\input{covers/cover_outer.tex}					% Text for outer cover
+\input{covers/cover_inner.tex}					% Text for inner cover
+
+
+%%%%%%%%%%%%%%%%%%%%%
+% Table of Contents %
+%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman} 
+\tableofcontents								% Add table of contents	
+%\thispagestyle{empty}							% Suppress the page number
+\clearpage
+%%%%%%%%%%%%%%%%%
+% preliminaries %
+%%%%%%%%%%%%%%%%%
+
+%\pagenumbering{roman} 							% Start page numbering in Roman numerals
+
+\input{text/acknowledgement.tex}
+\clearpage
+
+\printglossary[
+	type=\acronymtype,
+    style=long,
+    title=List of Abbreviations,
+    toctitle=List of Abbreviations
+    ]			
+\clearpage
+
+\printglossary[
+	type=\glsdefaulttype,
+    style=long
+    ]	
+\clearpage
+
+\addcontentsline{toc}{section}{\listtablename}
+\listoftables
+\clearpage										
+
+\addcontentsline{toc}{section}{\listfigurename}
+\listoffigures
+\clearpage
+
+\input{text/abstract.tex} 
+\clearpage
+
+%%%%%%%%%%%%%
+% Main Text %
+%%%%%%%%%%%%%
+
+\pagenumbering{arabic}
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+
+\input{text/1-Introduction.tex}
+\clearpage
+\input{text/2-lit_review.tex}	
+\clearpage
+\input{text/3-Methodology.tex}	
+\clearpage
+\input{text/4-Data_Analysis_Findings.tex}	
+\clearpage
+\input{text/5-Conclusion.tex}	
+\clearpage
+\input{text/Appendices.tex} 
+
+\addcontentsline{toc}{section}{\refname}
+\printbibliography
+
+
+\end{document}
+
+\end{document}
+

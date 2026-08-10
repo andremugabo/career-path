@@ -1,0 +1,320 @@
+\addcontentsline{toc}{section}{APPENDICES}
+\section*{APPENDICES}
+
+\subsection*{Appendix A: Python Source Code for Data Preprocessing}
+The following script handles the ingestion, cleaning, and mathematical synthesis of the Multi-Label ground truth targets.
+\begin{lstlisting}[language=Python, breaklines=true, basicstyle=\small\ttfamily]
+import pandas as pd
+import numpy as np
+
+def synthesize_multilabel_targets(df):
+    """
+    Since the raw S3 dataset does not contain actual longitudinal S6 career choices, 
+    we synthesize realistic Multi-Label ground truth based on typical academic 
+    requirements for Rwandan health sector programs to serve as the training targets 
+    for the Multi-Label Classifier Chains model.
+    """
+    print("Synthesizing Multi-Label targets...")
+    
+    # Extract normalized scores
+    bio = df['Biology_Score_Normalized']
+    chem = df['Chemistry_Score_Normalized']
+    math = df['Math_Score_Normalized']
+    phys = df['Physics_Score_Normalized']
+    
+    # 1. Medicine: Extremely high Bio & Chem, solid Math/Phys
+    df['Target_Medicine'] = ((bio >= 0.75) & (chem >= 0.75) & (math >= 0.6) & (phys >= 0.6)).astype(int)
+    
+    # 2. Pharmacy: Extremely high Chem & Math, solid Bio
+    df['Target_Pharmacy'] = ((chem >= 0.75) & (math >= 0.75) & (bio >= 0.6)).astype(int)
+    
+    # 3. Nursing: Solid Bio & Chem, moderate Math
+    df['Target_Nursing'] = ((bio >= 0.65) & (chem >= 0.6) & (math >= 0.5)).astype(int)
+    
+    # 4. Public Health: Moderate across all core STEM
+    df['Target_PublicHealth'] = ((bio >= 0.55) & (chem >= 0.55) & (math >= 0.5) & (phys >= 0.5)).astype(int)
+    
+    # 5. Biomedical Engineering: High Math & Phys, moderate Bio/Chem
+    df['Target_BiomedicalEng'] = ((math >= 0.75) & (phys >= 0.7) & (bio >= 0.5) & (chem >= 0.5)).astype(int)
+
+    return df
+
+def main():
+    input_file = '../DATA/cleaned_skill_profiles.csv'
+    output_file = '../DATA/processed_multilabel_data.csv'
+    
+    print(f"Loading dataset from {input_file}...")
+    try:
+        df = pd.read_csv(input_file)
+    except FileNotFoundError:
+        print(f"Error: Could not find {input_file}")
+        return
+        
+    print(f"Original shape: {df.shape}")
+    
+    features = ['Math_Score_Normalized', 'Physics_Score_Normalized', 
+                'Chemistry_Score_Normalized', 'Biology_Score_Normalized']
+    
+    # Drop rows missing the core STEM features
+    df = df.dropna(subset=features).copy()
+    print(f"Shape after dropping NaNs in core features: {df.shape}")
+    
+    # Filter out rows where scores might be incorrectly scaled (e.g. > 1.0 or < 0.0)
+    for f in features:
+        df = df[(df[f] >= 0.0) & (df[f] <= 1.0)]
+    print(f"Shape after ensuring strict 0-1 normalization bounds: {df.shape}")
+    
+    # Synthesize the multi-label ground truth
+    df = synthesize_multilabel_targets(df)
+    
+    # Summary of label distribution
+    targets = ['Target_Medicine', 'Target_Pharmacy', 'Target_Nursing', 
+               'Target_PublicHealth', 'Target_BiomedicalEng']
+    
+    print("\nTarget Label Distribution (Positive Cases):")
+    for t in targets:
+        positives = df[t].sum()
+        percentage = (positives / len(df)) * 100
+        print(f"  {t}: {positives} ({percentage:.2f}%)")
+        
+    # Check for overlapping labels (Multi-Label nature)
+    df['Total_Labels'] = df[targets].sum(axis=1)
+    print("\nMulti-Label Overlap Distribution:")
+    print(df['Total_Labels'].value_counts().sort_index())
+    
+    # Save the processed dataset
+    print(f"\nSaving processed multi-label dataset to {output_file}...")
+    df.to_csv(output_file, index=False)
+    print("Preprocessing Complete!")
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+\clearpage
+
+\subsection*{Appendix B: Python Source Code for Classifier Chain Modeling}
+The following script builds the Classifier Chain meta-architecture and evaluates XGBoost, RF, DT, and MLP.
+\begin{lstlisting}[language=Python, breaklines=true, basicstyle=\small\ttfamily]
+import pandas as pd
+import numpy as np
+import time
+from sklearn.model_selection import train_test_split
+from sklearn.multioutput import ClassifierChain
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score, hamming_loss, f1_score
+from xgboost import XGBClassifier
+import joblib
+
+def evaluate_model(y_true, y_pred, model_name):
+    # Subset Accuracy: strict exact match of all labels
+    subset_acc = accuracy_score(y_true, y_pred)
+    # Hamming Loss: fraction of incorrectly predicted labels
+    hl = hamming_loss(y_true, y_pred)
+    # Micro F1: aggregates contributions of all classes
+    f1 = f1_score(y_true, y_pred, average='micro')
+    
+    print(f"\n--- {model_name} Results ---")
+    print(f"Subset Accuracy : {subset_acc:.4f}")
+    print(f"Hamming Loss    : {hl:.4f}")
+    print(f"Micro F1-Score  : {f1:.4f}")
+    
+    return {'Model': model_name, 'Subset_Accuracy': subset_acc, 'Hamming_Loss': hl, 'Micro_F1': f1}
+
+def main():
+    input_file = '../DATA/processed_multilabel_data.csv'
+    
+    print(f"Loading dataset from {input_file}...")
+    try:
+        # Subsample to 5,000 rows to speed up training for the proof-of-concept
+        df = pd.read_csv(input_file).sample(5000, random_state=42)
+    except FileNotFoundError:
+        print(f"Error: Could not find {input_file}. Run 01_preprocessing.py first.")
+        return
+        
+    # Define features and targets
+    features = ['Math_Score_Normalized', 'Physics_Score_Normalized', 
+                'Chemistry_Score_Normalized', 'Biology_Score_Normalized']
+    
+    targets = ['Target_Medicine', 'Target_Pharmacy', 'Target_Nursing', 
+               'Target_PublicHealth', 'Target_BiomedicalEng']
+               
+    X = df[features].values
+    Y = df[targets].values
+    
+    # Stratification in multi-label is complex, we will use a simple random split for this POC
+    print("Splitting dataset into 80% train, 20% test...")
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
+    
+    print(f"Training set: {X_train.shape[0]} samples")
+    print(f"Testing set: {X_test.shape[0]} samples\n")
+    
+    # Define the base classifiers
+    base_models = {
+        'Decision Tree (DT)': DecisionTreeClassifier(max_depth=5, random_state=42),
+        'Random Forest (RF)': RandomForestClassifier(n_estimators=100, max_depth=5, random_state=42, n_jobs=-1),
+        'XGBoost (XGB)': XGBClassifier(n_estimators=100, max_depth=5, learning_rate=0.1, random_state=42, n_jobs=-1),
+        'Multi-Layer Perceptron (MLP)': MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=200, random_state=42)
+    }
+    
+    results = []
+    best_f1 = 0
+    best_model = None
+    best_model_name = ""
+    
+    for name, base_clf in base_models.items():
+        print(f"Training Classifier Chain with {name}...")
+        start_time = time.time()
+        
+        # Initialize Classifier Chain. order='random' could be used, or a specific order.
+        # We will use the default natural order [0, 1, ..., K-1] which maps to [Medicine, Pharmacy, ...]
+        chain = ClassifierChain(base_estimator=base_clf, order='random', random_state=42)
+        
+        try:
+            chain.fit(X_train, Y_train)
+            Y_pred = chain.predict(X_test)
+            
+            elapsed = time.time() - start_time
+            print(f"Training completed in {elapsed:.2f} seconds.")
+            
+            res = evaluate_model(Y_test, Y_pred, name)
+            results.append(res)
+            
+            # Keep track of the best model to save for counterfactual generation
+            if res['Micro_F1'] > best_f1:
+                best_f1 = res['Micro_F1']
+                best_model = chain
+                best_model_name = name
+                
+        except Exception as e:
+            print(f"Error training {name}: {e}")
+            
+    # Save the best model
+    if best_model is not None:
+        model_path = '../DATA/best_cc_model.pkl'
+        print(f"\nSaving the best model ({best_model_name}) to {model_path}...")
+        joblib.dump(best_model, model_path)
+        
+    # Output final summary
+    print("\n=== Final Model Comparison ===")
+    results_df = pd.DataFrame(results).sort_values(by='Micro_F1', ascending=False)
+    print(results_df.to_string(index=False))
+    
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+\clearpage
+
+\subsection*{Appendix C: Python Source Code for XAI Counterfactual Generation}
+The following script implements the $L_2$-constrained gradient-free optimizer to extract actionable pedagogical pathways.
+\begin{lstlisting}[language=Python, breaklines=true, basicstyle=\small\ttfamily]
+import pandas as pd
+import numpy as np
+import joblib
+import itertools
+
+def generate_counterfactual(model, original_x, target_index=0, feature_names=None):
+    """
+    A simplified gradient-free counterfactual generator (L2 optimization).
+    It searches for the minimal positive perturbation to the original_x
+    that flips the prediction of the target class to 1.
+    """
+    # Verify if it's already accepted
+    pred = model.predict([original_x])[0]
+    if pred[target_index] == 1:
+        return "Already accepted for this target. No counterfactual needed."
+        
+    print(f"\nOriginal Profile: {original_x}")
+    print(f"Original Prediction (All targets): {pred}")
+    print("Generating counterfactual... (Searching for minimal positive improvements)")
+    
+    # We only allow positive improvements (students can only study harder, not time travel to score less)
+    # We create a grid of possible improvements in steps of 0.05 (5%)
+    step = 0.05
+    max_steps = 10 # Up to 50% improvement per subject
+    
+    best_cf = None
+    min_distance = float('inf')
+    
+    # Generate all combinations of steps for 4 features
+    step_ranges = [range(max_steps + 1) for _ in range(4)]
+    
+    for steps in itertools.product(*step_ranges):
+        # Skip no change
+        if sum(steps) == 0:
+            continue
+            
+        perturbation = np.array(steps) * step
+        candidate_x = original_x + perturbation
+        
+        # Clip to 1.0 (max score)
+        candidate_x = np.clip(candidate_x, 0, 1.0)
+        
+        # L2 Distance
+        distance = np.sqrt(np.sum((candidate_x - original_x)**2))
+        
+        # If this distance is already worse than our best found, skip evaluating the model (optimization)
+        if distance >= min_distance:
+            continue
+            
+        # Check model prediction
+        candidate_pred = model.predict([candidate_x])[0]
+        
+        if candidate_pred[target_index] == 1:
+            best_cf = candidate_x
+            min_distance = distance
+            
+    if best_cf is not None:
+        print(f"Found Counterfactual! L2 Distance: {min_distance:.4f}")
+        print(f"Required Profile: {best_cf}")
+        
+        # Calculate exact changes
+        changes = best_cf - original_x
+        print("\nActionable Advice:")
+        for i, change in enumerate(changes):
+            if change > 0.001:
+                name = feature_names[i] if feature_names else f"Feature {i}"
+                print(f"- Improve {name} by {change*100:.1f}%")
+    else:
+        print("Could not find a valid counterfactual within realistic bounds.")
+
+def main():
+    model_path = '../DATA/best_cc_model.pkl'
+    data_path = '../DATA/processed_multilabel_data.csv'
+    
+    print(f"Loading best model from {model_path}...")
+    try:
+        model = joblib.load(model_path)
+    except FileNotFoundError:
+        print("Model file not found. Run 02_modeling.py first.")
+        return
+        
+    print(f"Loading a sample from dataset...")
+    df = pd.read_csv(data_path).sample(1000, random_state=42)
+    
+    features = ['Math_Score_Normalized', 'Physics_Score_Normalized', 
+                'Chemistry_Score_Normalized', 'Biology_Score_Normalized']
+                
+    # Find a student who was rejected for Medicine
+    # Medicine is index 0 in the targets list from 02_modeling.py
+    # Let's find someone with decent scores who barely missed it
+    
+    student = df[(df['Target_Medicine'] == 0) & (df['Biology_Score_Normalized'] > 0.6) & (df['Chemistry_Score_Normalized'] > 0.6)].iloc[0]
+    
+    original_x = student[features].values.astype(float)
+    
+    generate_counterfactual(model, original_x, target_index=0, feature_names=features)
+    
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+\clearpage
+
+\input{text/Appendix_C_Counterfactuals.tex}
+\clearpage
+
+\subsection*{Appendix D: Request for Data Access}
+The following is the original request letter submitted to the Ministry of Education for data access to support this research.
+\includepdf[pages=-]{Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf}
+\clearpage

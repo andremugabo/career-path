@@ -1,0 +1,292 @@
+\babel@toc {american}{}\relax 
+\contentsline {section}{Acknowledgements}{xii}{section*.1}%
+\contentsline {section}{List of Tables}{xv}{section*.1}%
+\contentsline {section}{List of Figures}{xvii}{section*.1}%
+\contentsline {section}{Abstract}{xviii}{section*.2}%
+\contentsline {section}{Introduction}{1}{section*.3}%
+\contentsline {subsection}{Background of the Study}{2}{section*.4}%
+\contentsline {subsection}{Problem Statement}{4}{section*.5}%
+\contentsline {subsection}{Objective of the Study}{5}{section*.6}%
+\contentsline {subsection}{Research Questions}{6}{section*.7}%
+\contentsline {subsection}{Hypotheses}{6}{section*.8}%
+\contentsline {subsection}{Significance of the Study}{7}{section*.9}%
+\contentsline {subsubsection}{Impact on Students and Parents}{7}{section*.10}%
+\contentsline {subsubsection}{Impact on Educational Institutions and Counselors}{8}{section*.11}%
+\contentsline {subsubsection}{Impact on National Healthcare Infrastructure and Policy}{8}{section*.12}%
+\contentsline {subsection}{Scope of the Study}{9}{section*.13}%
+\contentsline {subsection}{Limitations and Assumptions of the Study}{10}{section*.14}%
+\contentsline {subsubsection}{Assumptions}{10}{section*.15}%
+\contentsline {subsubsection}{Limitations}{11}{section*.16}%
+\contentsline {subsection}{Operational Definition of Terms}{11}{section*.17}%
+\contentsline {section}{Literature Review}{13}{section*.18}%
+\contentsline {subsection}{Theoretical Framework: From Academic Performance to Career Pathway}{13}{section*.19}%
+\contentsline {subsection}{Chronological Evolution of Educational Guidance Systems}{14}{section*.20}%
+\contentsline {subsection}{Machine Learning in Educational Data Mining}{15}{section*.21}%
+\contentsline {subsection}{Single-Label vs. Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Classification}{16}{section*.22}%
+\contentsline {subsubsection}{Binary Relevance and the Independence Assumption}{17}{section*.23}%
+\contentsline {subsubsection}{Classifier Chains for Label Correlation}{18}{section*.24}%
+\contentsline {subsection}{Review of Selected Base Algorithms}{19}{section*.25}%
+\contentsline {subsubsection}{Decision Trees (DT)}{19}{section*.26}%
+\contentsline {subsubsection}{Random Forest (RF)}{20}{section*.27}%
+\contentsline {subsubsection}{XGBoost (Extreme Gradient Boosting)}{20}{section*.28}%
+\contentsline {subsubsection}{Multi-Layer Perceptron (MLP)}{21}{section*.29}%
+\contentsline {subsubsection}{Limitations of Traditional Algorithms (SVM and Naive Bayes)}{22}{section*.30}%
+\contentsline {subsection}{Explainable AI (XAI) and Counterfactuals}{23}{section*.31}%
+\contentsline {subsection}{Ethical AI and Algorithmic Fairness in Education}{24}{section*.32}%
+\contentsline {subsection}{Research Gap}{25}{section*.33}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{25}{section*.34}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{25}{section*.35}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{26}{section*.36}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{26}{section*.37}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{27}{section*.38}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{27}{section*.39}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{28}{section*.40}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{28}{section*.41}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{28}{section*.42}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{29}{section*.43}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{29}{section*.44}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{30}{section*.45}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{30}{section*.46}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{30}{section*.47}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{31}{section*.48}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{31}{section*.49}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{32}{section*.50}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{32}{section*.51}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{33}{section*.52}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{33}{section*.53}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{33}{section*.54}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{33}{section*.55}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{34}{section*.56}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{34}{section*.57}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{35}{section*.58}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{35}{section*.59}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{36}{section*.60}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{36}{section*.61}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{36}{section*.62}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{36}{section*.63}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{37}{section*.64}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{37}{section*.65}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{38}{section*.66}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{38}{section*.67}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{39}{section*.68}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{39}{section*.69}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{39}{section*.70}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{40}{section*.71}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{40}{section*.72}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{41}{section*.73}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{41}{section*.74}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{41}{section*.75}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{42}{section*.76}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{42}{section*.77}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{43}{section*.78}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{43}{section*.79}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{44}{section*.80}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{44}{section*.81}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{44}{section*.82}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{44}{section*.83}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{45}{section*.84}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{45}{section*.85}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{46}{section*.86}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{46}{section*.87}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{47}{section*.88}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{47}{section*.89}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{47}{section*.90}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{47}{section*.91}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{48}{section*.92}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{48}{section*.93}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{49}{section*.94}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{49}{section*.95}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{50}{section*.96}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{50}{section*.97}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{50}{section*.98}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{51}{section*.99}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{51}{section*.100}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{52}{section*.101}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{52}{section*.102}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{52}{section*.103}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{53}{section*.104}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{53}{section*.105}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{54}{section*.106}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{54}{section*.107}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{55}{section*.108}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{55}{section*.109}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{55}{section*.110}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{55}{section*.111}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{56}{section*.112}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{56}{section*.113}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{57}{section*.114}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{57}{section*.115}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{58}{section*.116}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{58}{section*.117}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{58}{section*.118}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{58}{section*.119}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{59}{section*.120}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{59}{section*.121}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{60}{section*.122}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{60}{section*.123}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{61}{section*.124}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{61}{section*.125}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{61}{section*.126}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{62}{section*.127}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{62}{section*.128}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{63}{section*.129}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{63}{section*.130}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{63}{section*.131}%
+\contentsline {subsection}{Deep Mathematical Foundations of Tree-Based Ensembles}{64}{section*.132}%
+\contentsline {subsubsection}{Information Theory and Shannon Entropy}{64}{section*.133}%
+\contentsline {subsubsection}{Gini Impurity vs. Entropy}{65}{section*.134}%
+\contentsline {subsubsection}{Gradient Boosting Optimization and Newton-Raphson Step}{65}{section*.135}%
+\contentsline {subsection}{Explainable AI (XAI): From LIME \blx@tocontentsinit {0}\parencite {lundberg2017unified} to Counterfactuals}{66}{section*.136}%
+\contentsline {subsubsection}{Local Interpretable Model-agnostic Explanations (LIME)}{66}{section*.137}%
+\contentsline {subsubsection}{Counterfactual Optimization Bounds}{66}{section*.138}%
+\contentsline {section}{Methodology}{67}{section*.139}%
+\contentsline {subsection}{Research Design}{67}{section*.140}%
+\contentsline {subsection}{Data Collection and Description}{68}{section*.141}%
+\contentsline {subsection}{Data Preprocessing and Target Transformation}{69}{section*.142}%
+\contentsline {subsubsection}{Handling Missing Values and Normalization}{69}{section*.143}%
+\contentsline {subsubsection}{Covariance and Feature Collinearity Analysis}{70}{section*.144}%
+\contentsline {subsubsection}{Multi-Label Target Encoding (Multi-Hot Encoding)}{70}{section*.145}%
+\contentsline {subsection}{Model Architecture and Implementation}{71}{section*.146}%
+\contentsline {subsubsection}{The Classifier Chain \blx@tocontentsinit {0}\parencite {read2011classifier} Mechanism}{71}{section*.147}%
+\contentsline {subsubsection}{Base Algorithms Configuration}{72}{section*.148}%
+\contentsline {subsection}{The Intelligence Layers: Explainability and Counterfactuals}{74}{section*.149}%
+\contentsline {subsubsection}{Global Explanation: Feature Importance Ranking}{74}{section*.150}%
+\contentsline {subsubsection}{Local Explanation: Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Generation}{74}{section*.151}%
+\contentsline {subsection}{Evaluation Metrics}{75}{section*.152}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{77}{section*.153}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{77}{section*.154}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{78}{section*.155}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{78}{section*.156}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{78}{section*.157}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{78}{section*.158}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{79}{section*.159}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{80}{section*.160}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{80}{section*.161}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{80}{section*.162}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{81}{section*.163}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{81}{section*.164}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{82}{section*.165}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{82}{section*.166}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{83}{section*.167}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{83}{section*.168}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{83}{section*.169}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{83}{section*.170}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{84}{section*.171}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{85}{section*.172}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{85}{section*.173}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{85}{section*.174}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{86}{section*.175}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{86}{section*.176}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{87}{section*.177}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{87}{section*.178}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{88}{section*.179}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{88}{section*.180}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{88}{section*.181}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{88}{section*.182}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{89}{section*.183}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{90}{section*.184}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{90}{section*.185}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{90}{section*.186}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{91}{section*.187}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{91}{section*.188}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{92}{section*.189}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{92}{section*.190}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{93}{section*.191}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{93}{section*.192}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{93}{section*.193}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{93}{section*.194}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{94}{section*.195}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{95}{section*.196}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{95}{section*.197}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{95}{section*.198}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{96}{section*.199}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{96}{section*.200}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{97}{section*.201}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{97}{section*.202}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{98}{section*.203}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{98}{section*.204}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{98}{section*.205}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{98}{section*.206}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{99}{section*.207}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{100}{section*.208}%
+\contentsline {subsection}{Algorithmic Pseudocode and Methodological Workflows}{100}{section*.209}%
+\contentsline {subsubsection}{Classifier Chain Training Protocol}{100}{section*.210}%
+\contentsline {subsubsection}{Vectorized Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Search Space}{101}{section*.211}%
+\contentsline {subsection}{Architectural Flowchart of Data Processing}{101}{section*.212}%
+\contentsline {section}{Data Presentation, Analysis, Modelling, Interpretation, and Discussion of Findings}{103}{section*.213}%
+\contentsline {subsection}{Profile of the Dataset and Target Synthesis}{103}{section*.214}%
+\contentsline {subsection}{Exploratory Data Analysis and Preprocessing}{104}{section*.215}%
+\contentsline {subsection}{Model Training and Algorithmic Evaluation}{107}{section*.220}%
+\contentsline {subsubsection}{Interpretation of the Algorithmic Divergence}{109}{section*.224}%
+\contentsline {subsection}{Counterfactual Generation for Explainable AI (XAI)}{110}{section*.225}%
+\contentsline {subsubsection}{Empirical Counterfactual \blx@tocontentsinit {0}\parencite {wachter2017counterfactual} Demonstration}{110}{section*.226}%
+\contentsline {subsection}{Implication of the Findings}{111}{section*.227}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{112}{section*.228}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{112}{section*.230}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{113}{section*.232}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{113}{section*.234}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{114}{section*.236}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{114}{section*.238}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{115}{section*.240}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{115}{section*.242}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{115}{section*.244}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{116}{section*.246}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{116}{section*.248}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{117}{section*.250}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{117}{section*.252}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{118}{section*.254}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{118}{section*.256}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{119}{section*.258}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{119}{section*.260}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{120}{section*.262}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{120}{section*.264}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{121}{section*.266}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{121}{section*.268}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{122}{section*.270}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{122}{section*.272}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{123}{section*.274}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{123}{section*.276}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{124}{section*.278}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{124}{section*.280}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{125}{section*.282}%
+\contentsline {subsection}{Extended Analysis of Multi-Label \blx@tocontentsinit {0}\parencite {tsoumakas2007multi} Class Distributions}{125}{section*.284}%
+\contentsline {subsubsection}{Per-Class Performance Degradation}{126}{section*.286}%
+\contentsline {section}{Summary, Conclusion, and Recommendations}{131}{section*.288}%
+\contentsline {subsection}{Summary of the Study}{131}{section*.289}%
+\contentsline {subsection}{Conclusion}{131}{section*.290}%
+\contentsline {subsection}{Recommendations for Policy and Practice}{132}{section*.291}%
+\contentsline {subsection}{Contribution to Knowledge}{133}{section*.292}%
+\contentsline {subsection}{Limitations of the Methodology}{133}{section*.293}%
+\contentsline {subsection}{Suggestions for Further Studies}{134}{section*.294}%
+\contentsline {subsection}{Strategic Implications for the Ministry of Education (MINEDUC)}{134}{section*.295}%
+\contentsline {subsection}{Limitations of the Current Study}{134}{section*.296}%
+\contentsline {subsection}{Final Recommendations}{135}{section*.297}%
+\contentsline {subsection}{Strategic Implications for the Ministry of Education (MINEDUC)}{135}{section*.298}%
+\contentsline {subsection}{Limitations of the Current Study}{135}{section*.299}%
+\contentsline {subsection}{Final Recommendations}{136}{section*.300}%
+\contentsline {subsection}{Strategic Implications for the Ministry of Education (MINEDUC)}{136}{section*.301}%
+\contentsline {subsection}{Limitations of the Current Study}{136}{section*.302}%
+\contentsline {subsection}{Final Recommendations}{137}{section*.303}%
+\contentsline {subsection}{Strategic Implications for the Ministry of Education (MINEDUC)}{137}{section*.304}%
+\contentsline {subsection}{Limitations of the Current Study}{137}{section*.305}%
+\contentsline {subsection}{Final Recommendations}{138}{section*.306}%
+\contentsline {subsection}{Strategic Implications for the Ministry of Education (MINEDUC)}{138}{section*.307}%
+\contentsline {subsection}{Limitations of the Current Study}{138}{section*.308}%
+\contentsline {subsection}{Final Recommendations}{139}{section*.309}%
+\contentsline {subsection}{Strategic Implications for the Ministry of Education (MINEDUC)}{139}{section*.310}%
+\contentsline {subsection}{Limitations of the Current Study}{139}{section*.311}%
+\contentsline {subsection}{Final Recommendations}{140}{section*.312}%
+\contentsline {subsection}{Strategic Implications for the Ministry of Education (MINEDUC)}{140}{section*.313}%
+\contentsline {subsection}{Limitations of the Current Study}{140}{section*.314}%
+\contentsline {subsection}{Final Recommendations}{141}{section*.315}%
+\contentsline {subsection}{Strategic Implications for the Ministry of Education (MINEDUC)}{141}{section*.316}%
+\contentsline {subsection}{Limitations of the Current Study}{141}{section*.317}%
+\contentsline {subsection}{Final Recommendations}{142}{section*.318}%
+\contentsline {subsection}{Strategic Implications for the Ministry of Education (MINEDUC)}{142}{section*.319}%
+\contentsline {subsection}{Limitations of the Current Study}{142}{section*.320}%
+\contentsline {subsection}{Final Recommendations}{143}{section*.321}%
+\contentsline {subsection}{Strategic Implications for the Ministry of Education (MINEDUC)}{143}{section*.322}%
+\contentsline {subsection}{Limitations of the Current Study}{143}{section*.323}%
+\contentsline {subsection}{Final Recommendations}{144}{section*.324}%
+\contentsline {section}{APPENDICES}{145}{section*.324}%
+\contentsline {section}{References}{183}{section*.330}%
