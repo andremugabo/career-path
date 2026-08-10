@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber thesis"] 1786378992.53243 "thesis.bcf" "thesis.bbl" "thesis" 1786385621.60975 0
+["biber thesis"] 1786378992.53243 "thesis.bcf" "thesis.bbl" "thesis" 1786385798.66171 0
   "Reference.bib" 1786370624.37693 3020 31f97095dbe1bb04f272db423766044f ""
-  "thesis.bcf" 1786385621.19063 160585 060adf7b37efe4922e7d75e9667a05eb "pdflatex"
+  "thesis.bcf" 1786385798.22026 160585 060adf7b37efe4922e7d75e9667a05eb "pdflatex"
   (generated)
   "thesis.bbl"
   "thesis.blg"
   (rewritten before read)
-["pdflatex"] 1786385612.20133 "thesis.tex" "thesis.pdf" "thesis" 1786385621.6103 0
+["pdflatex"] 1786385789.29353 "thesis.tex" "thesis.pdf" "thesis" 1786385798.6622 0
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -234,7 +234,6 @@
   "/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/lscape.sty" 1654720880 1822 5e4f855a9ecb640f34881e4b457fa9aa ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/mathcolor.ltx" 1667332637 2885 9c645d672ae17285bba324998918efd8 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/trig.sty" 1654720880 4023 293ea1c16429fc0c4cf605f4da1791a9 ""
-  "/usr/local/texlive/2024/texmf-dist/tex/latex/grfext/grfext.sty" 1575499774 7133 b94bbacbee6e4fdccdc7f810b2aec370 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/hycolor/hycolor.sty" 1580250785 17914 4c28a13fc3d975e6e81c9bea1d697276 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/hpdftex.def" 1705871765 48154 e46bf8adeb936500541441171d61726d ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/hyperref.sty" 1705871765 220920 fd3cbb5f1a2bc9b8f451b8b7d8171264 ""
@@ -321,7 +320,7 @@
   "figures/stem_boxplot.pdf" 1786374871.19302 955097 ac74326a5e7938ef1d86e95f384fe964 ""
   "figures/stem_correlation.pdf" 1786374846.49413 17395 9ed8b9df432368c39fce7cd49b4eaddf ""
   "figures/target_distribution.pdf" 1786374846.06457 13994 b20429cd9a6d16fa1c72f46616edd3df ""
-  "packages.tex" 1786384895.25225 1277 249238dd5a900b93d8cf8ebad657a9e7 ""
+  "packages.tex" 1786385755.00729 1269 04752f4b33135ac23ab84ff3e8ca0e8c ""
   "setup.tex" 1786367406.8556 1132 903795178bb9ae466fa3fbe05bc8768d ""
   "text/1-Introduction.tex" 1786381071.66974 22620 730f62021ae1a45407f4d7118f62a70f ""
   "text/2-lit_review.tex" 1786381071.67345 96870 f0319352c28d254e65b8379699e6281a ""
@@ -333,14 +332,14 @@
   "text/abstract.tex" 1786385328.74764 2806 73a7dc795db8ac32a81c574b48d71a7b ""
   "text/acknowledgement.tex" 1786385319.59147 1651 026715c7eb2866635246f7399d4a539a ""
   "thesis.acr" 1786384942.79854 6 9f404503043ec80c08484be9f659189e ""
-  "thesis.aux" 1786385621.15912 112682 8c4470344510f675f01281af40faa72f "pdflatex"
+  "thesis.aux" 1786385798.18762 112777 728f0cad718c432523872f316c67ba07 "pdflatex"
   "thesis.bbl" 1786378996.07549 35058 0fbef1aa1eab87c6ae6afb956b4903e3 "biber thesis"
-  "thesis.lof" 1786385621.19249 994 f1d7dc28f46237df10d798cc79242012 "pdflatex"
-  "thesis.lot" 1786385621.19219 4474 5beae34b8c06107181f7d00c7f7ea42e "pdflatex"
-  "thesis.out" 1786385621.1855 84102 9b973f9a47aaaa5894efb518487e61d0 "pdflatex"
-  "thesis.run.xml" 1786385621.19196 2440 08eb22783b42270647a1fd219de1de05 "pdflatex"
-  "thesis.tex" 1786385305.85292 1650 79173e6a3852bcd96d9d19ae4c804f27 ""
-  "thesis.toc" 1786385621.19212 28815 478084bb3f0faec47dfefb8350f0832b "pdflatex"
+  "thesis.lof" 1786385798.22197 994 711ca2c5d76a1b7b14409694bf12bcc3 "pdflatex"
+  "thesis.lot" 1786385798.2217 4474 6e4cdb6c7af30685ba9dd33ec99debd5 "pdflatex"
+  "thesis.out" 1786385798.21509 84193 eadf424002e49af16171163c242c7ae9 "pdflatex"
+  "thesis.run.xml" 1786385798.22149 2440 08eb22783b42270647a1fd219de1de05 "pdflatex"
+  "thesis.tex" 1786385691.9256 1650 79173e6a3852bcd96d9d19ae4c804f27 ""
+  "thesis.toc" 1786385798.22163 28869 87b08d79946bc9909bfd71e55d80fb86 "pdflatex"
   (generated)
   "thesis.acn"
   "thesis.aux"

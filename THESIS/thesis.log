@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.23)  10 AUG 2026 20:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.23)  10 AUG 2026 20:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1652,16 +1652,8 @@ LaTeX Font Info:    ... okay on input line 13.
 \everyMPtoPDFconversion=\toks58
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-
-(/usr/local/texlive/2024/texmf-dist/tex/latex/grfext/grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
@@ -1822,28 +1814,28 @@ l.37 \end{titlepage}
 \tf@toc=\write11
 \openout11 = `thesis.toc'.
 
- [11] (./text/acknowledgement.tex) [12
+ [11] [12] (./text/acknowledgement.tex) [13
 
 
-] (./thesis.acr) [13
+] (./thesis.acr) [14
 
 ]
-(./thesis.lot [14
+(./thesis.lot [15
 
 ])
 \tf@lot=\write12
 \openout12 = `thesis.lot'.
 
- [15] (./thesis.lof)
+ [16] (./thesis.lof)
 \tf@lof=\write13
 \openout13 = `thesis.lof'.
 
- [16
+ [17
 
-] (./text/abstract.tex [17
+] (./text/abstract.tex [18
 
 ])
-[18] (./text/1-Introduction.tex
+[19] (./text/1-Introduction.tex
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
@@ -2039,26 +2031,26 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 [101]) [102] (./text/4-Data_Analysis_Findings.tex [103
 
 ]
-<figures/stem_boxplot.pdf, id=2659, 722.7pt x 433.62pt>
+<figures/stem_boxplot.pdf, id=2668, 722.7pt x 433.62pt>
 File: figures/stem_boxplot.pdf Graphic file (type pdf)
 <use figures/stem_boxplot.pdf>
 Package pdftex.def Info: figures/stem_boxplot.pdf  used on input line 32.
 (pdftex.def)             Requested size: 375.80544pt x 225.48369pt.
  [104]
-<figures/stem_correlation.pdf, id=2670, 578.16pt x 433.62pt>
+<figures/stem_correlation.pdf, id=2679, 578.16pt x 433.62pt>
 File: figures/stem_correlation.pdf Graphic file (type pdf)
 <use figures/stem_correlation.pdf>
 Package pdftex.def Info: figures/stem_correlation.pdf  used on input line 41.
 (pdftex.def)             Requested size: 352.31625pt x 264.23654pt.
  [105 <./figures/stem_boxplot.pdf>]
-<figures/target_distribution.pdf, id=2724, 722.7pt x 433.62pt>
+<figures/target_distribution.pdf, id=2733, 722.7pt x 433.62pt>
 File: figures/target_distribution.pdf Graphic file (type pdf)
 <use figures/target_distribution.pdf>
 Package pdftex.def Info: figures/target_distribution.pdf  used on input line 50
 .
 (pdftex.def)             Requested size: 375.80544pt x 225.48369pt.
  [106 <./figures/stem_correlation.pdf> <./figures/target_distribution.pdf>]
-<figures/label_cooccurrence.pdf, id=2817, 722.7pt x 578.16pt>
+<figures/label_cooccurrence.pdf, id=2828, 722.7pt x 578.16pt>
 File: figures/label_cooccurrence.pdf Graphic file (type pdf)
 <use figures/label_cooccurrence.pdf>
 Package pdftex.def Info: figures/label_cooccurrence.pdf  used on input line 59.
@@ -2069,12 +2061,12 @@ Package pdftex.def Info: figures/label_cooccurrence.pdf  used on input line 59.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [107 <./figures/label_cooccurrence.pdf>]
-<figures/model_performance.pdf, id=2874, 722.7pt x 433.62pt>
+<figures/model_performance.pdf, id=2883, 722.7pt x 433.62pt>
 File: figures/model_performance.pdf Graphic file (type pdf)
 <use figures/model_performance.pdf>
 Package pdftex.def Info: figures/model_performance.pdf  used on input line 91.
 (pdftex.def)             Requested size: 399.29463pt x 239.57684pt.
-<figures/feature_importance.pdf, id=2875, 578.16pt x 433.62pt>
+<figures/feature_importance.pdf, id=2884, 578.16pt x 433.62pt>
 File: figures/feature_importance.pdf Graphic file (type pdf)
 <use figures/feature_importance.pdf>
 Package pdftex.def Info: figures/feature_importance.pdf  used on input line 98.
@@ -2305,7 +2297,7 @@ Overfull \hbox (28.57805pt too wide) in alignment at lines 424--524
 
 [166] [167] [168] [169] [170] [171] [172] [173] [174] [175] [176] [177]
 [178] [179]) [180]
-<Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf, id=3731, 597.23125pt x 844
+<Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf, id=3740, 597.23125pt x 844
 .15375pt>
 File: Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf Graphic file (type pdf
 )
@@ -2319,7 +2311,7 @@ File: Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf Graphic file (type pdf
 Package pdftex.def Info: Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf  us
 ed on input line 319.
 (pdftex.def)             Requested size: 597.22978pt x 844.15169pt.
-<Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf, id=3734, page=1, 597.23125
+<Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf, id=3743, page=1, 597.23125
 pt x 844.15375pt>
 File: Initial_REQUEST_To_MINEDUC_BY_MURENZI_Benjamin.pdf Graphic file (type pdf
 )
@@ -2370,16 +2362,16 @@ L3 programming layer <2024-02-20>
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 9B973F9A47AAAA5894EFB518487E61D0;84102.
+(rerunfilecheck)             Checksum: EADF424002E49AF16171163C242C7AE9;84193.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43652 strings out of 474116
- 797803 string characters out of 5743682
+ 43616 strings out of 474116
+ 796893 string characters out of 5743682
  2113187 words of memory out of 5000000
- 64097 multiletter control sequences out of 15000+600000
+ 64063 multiletter control sequences out of 15000+600000
  618346 words of font info for 94 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,17n,112p,2434b,5372s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2399,10 +2391,10 @@ s/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1
 /urw/times/utmb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times
 /utmbi8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.p
 fb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (203 pages, 2046853 bytes).
+Output written on thesis.pdf (204 pages, 2047218 bytes).
 PDF statistics:
- 4070 PDF objects out of 4296 (max. 8388607)
- 3537 compressed objects within 36 object streams
- 1116 named destinations out of 1200 (max. 500000)
- 2391 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 4081 PDF objects out of 4296 (max. 8388607)
+ 3547 compressed objects within 36 object streams
+ 1118 named destinations out of 1200 (max. 500000)
+ 2399 words of extra memory for PDF output out of 10000 (max. 10000000)
 
